@@ -21,6 +21,21 @@ Optimize your Claude prompts to reduce token usage and API costs. This tool uses
 - **Output Tokens:** $15.00 per million tokens
 
 ## Screenshots
+<img width="720" height="550" alt="empty" src="https://github.com/user-attachments/assets/01e79055-b072-4457-afc9-d83c190d5855" />
+
+---
+
+<img width="720" height="525" alt="prompt-added" src="https://github.com/user-attachments/assets/887698a3-9747-43de-bad5-9e425e29c7dc" />
+
+---
+
+<img width="720" height="500" alt="prompt-optimized-1" src="https://github.com/user-attachments/assets/b75d4a0b-9a20-44ab-88d2-649f082a037a" />
+
+---
+
+<img width="720" height="830" alt="prompt-optimized-2" src="https://github.com/user-attachments/assets/1c2bde6a-61df-4b5b-9585-6a12970b1f28" />
+
+---
 
 ### Main Interface
 The optimizer provides a clean, intuitive interface for optimizing prompts:

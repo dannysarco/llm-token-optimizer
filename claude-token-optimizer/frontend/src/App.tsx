@@ -101,19 +101,11 @@ const App: React.FC = () => {
   };
 
   const optimizePrompt = async () => {
-    if (!prompt.trim()) {
-      setError("Please enter a prompt to optimize");
-      return;
-    }
-
     setLoading(true);
     setError(null);
-    setOptimized("");
-    setOptTokens(null);
-    setUsage(null);
 
     try {
-      const tc = origTokens || await getTokenCount(prompt);
+      const tc = await getTokenCount(prompt);
       setOrigTokens(tc);
 
       const resp = await fetch(`${BACKEND_URL}/optimize_prompt`, {
@@ -121,17 +113,13 @@ const App: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
       });
-
-      if (!resp.ok) {
-        const errorData = await resp.json();
-        throw new Error(errorData.error || "Failed to optimize prompt");
-      }
-
       const data = await resp.json();
       if (!data.optimized) throw new Error("No optimized prompt received");
-      
       setOptimized(data.optimized);
-      setOptTokens(data.optimizedTokens || await getTokenCount(data.optimized));
+
+      // Get token count for optimized version
+      const otc = await getTokenCount(data.optimized);
+      setOptTokens(otc);
 
       // Calculate API usage and cost
       const inputTokens = data.usage?.input_tokens || 0;
@@ -140,8 +128,8 @@ const App: React.FC = () => {
       const outputCost = outputTokens * OUTPUT_COST_PER_TOKEN;
       const totalCost = inputCost + outputCost;
 
-      const savedTokens = tc - (data.optimizedTokens || 0);
-      const savedCost = savedTokens * INPUT_COST_PER_TOKEN; // Savings based on input token cost
+      const savedTokens = (tc || 0) - (otc || 0);
+      const savedCost = savedTokens * INPUT_COST_PER_TOKEN;
 
       setUsage({
         inputTokens,
@@ -159,7 +147,7 @@ const App: React.FC = () => {
         prompt,
         optimized: data.optimized,
         origTokens: tc,
-        optTokens: data.optimizedTokens || 0,
+        optTokens: otc,
         inputTokens,
         outputTokens,
         inputCost,
@@ -170,7 +158,7 @@ const App: React.FC = () => {
       };
       setSessionStats((prev) => [...prev, entry]);
     } catch (e: any) {
-      setError(e.message || "Error optimizing prompt");
+      setError(e.message || "Error optimizing prompt.");
     }
     setLoading(false);
   };

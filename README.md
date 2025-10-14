@@ -20,6 +20,10 @@ Optimize your Claude prompts to reduce token usage and API costs. This tool uses
 - **Input Tokens:** $3.00 per million tokens
 - **Output Tokens:** $15.00 per million tokens
 
+## Demo
+
+<video src="https://github.com/user-attachments/assets/b6d6aaff-c840-40ef-81be-c2d98daf482d" width="640" autoplay loop muted playsinline></video>
+
 ## Screenshots
 <img width="720" height="550" alt="empty" src="https://github.com/user-attachments/assets/01e79055-b072-4457-afc9-d83c190d5855" />
 
